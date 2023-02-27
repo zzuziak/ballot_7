@@ -6,7 +6,7 @@ dotenv.config();
 async function main() {
   const args = process.argv;
   const contractAddress = args[2];
-  const proposal = args[3];
+  //const proposal = args[3];
 
   // Use the goerli testnet provider
   const provider = new ethers.providers.AlchemyProvider(
@@ -17,11 +17,12 @@ async function main() {
   //Create my wallet
   const privateKey = process.env.PRIVATE_KEY;
   if (!privateKey || privateKey.length <= 0)
-    throw new Error("Missing enviroment: mnemonic missing");
+    throw new Error("Missing enviroment: private key missing");
   const wallet = new ethers.Wallet(privateKey);
 
   //Connect the wallet to the provider
   const signer = wallet.connect(provider);
+  console.log("The signer is: " + signer.address);
 
   const ballotFactory = new Ballot__factory(signer);
 
